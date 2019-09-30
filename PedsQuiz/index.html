@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+    <div class="qPanel">
+        <div>QUIZ</div>
+
+        <div class="qs" id="question"></div>
+        
+        <div><input type="radio" name="opt1" id="options"><span id="q1"></span></div>
+        <div><input type="radio" name="opt2" id="options"><span id="q2"></span></div>
+        <div><input type="radio" name="opt3" id="options"><span id="q3"></span></div>
+
+        <button class="nextBtn" onclick="generate();">Next</button>    
+    </div>
+    <div id="myData"></div>
+    <script>
+        fetch('data.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = data[i].q + ' ' + data[i].answer;
+                mainContainer.appendChild(div);
+            }
+        }
+    </script>
+
+
+    <script src="readjson.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
